@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Github, ExternalLink, ChevronUp, ChevronDown } from 'lucide-react';
 
 const projects = [
   {
-    title: "CodeSteps",
-    description: "Duolingo-style platform for learning Data Structures and Algorithms. Built with React, Firebase, and Python.",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=800",
+    title: "Duneland Home Tech Solutions Company Website",
+    description: "I built a website for my company that provides home technology solutions. I used React, Supabase, and Python to build the website.",
+    image: "/assets/dths_website.png",
     tags: ["React", "Supabase", "Python", "TypeScript"],
-    github: "https://github.com/anthony-mccrovitz/codesteps",
-    demo: "https://codesteps.dev"
+    github: "https://github.com/anthony-mccrovitz/duneland-hometech-website",
+    demo: "https://www.dunelandhometech.com/"
   },
   {
     title: "MLB WAR Prediction",
@@ -25,6 +26,14 @@ const projects = [
     tags: ["Python", "TensorFlow", "Pandas", "Scikit-learn"],
     github: "https://github.com/anthony-mccrovitz/Stock-Price-Prediction",
     demo: null
+  },
+   {
+    title: "ArmDecl",
+    description: "ArmDecl is a web application that allows users to convert ARM assembly code into HTML and CSS.",
+    image: "/assets/arm-decl.png",
+    tags: ["Next.js", "Node.js", "Tailwind", "TypeScript"],
+    github: "https://github.com/anthony-mccrovitz/arm-decl",
+    demo: "https://arm-decl.vercel.app/"
   },
   {
     title: "Metaverse Madness",
@@ -63,9 +72,16 @@ const Projects = () => {
   );
 
   return (
-    <section id="projects" className="py-20">
+    <motion.section 
+      id="projects" 
+      className="py-20"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Featured Projects</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-green-500 via-emerald-400 to-green-300 bg-clip-text text-transparent drop-shadow-[0_2px_8px_#2ecc71]">Featured Projects</h2>
         
         <div className="relative">
           <button
@@ -80,59 +96,54 @@ const Projects = () => {
           >
             <ChevronDown className="w-6 h-6" />
           </button>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {currentProjects.map((project, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span 
-                        key={tagIndex}
-                        className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 rounded-full text-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-4">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {currentProjects.map((project, index) => (
+            <motion.div
+              key={index}
+              className="bg-card text-card-foreground rounded-lg overflow-hidden shadow-lg border-2 border-green-400 flex flex-col transform hover:scale-105 hover:shadow-[0_0_32px_8px_#2ecc71] transition-transform duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <p className="text-muted-foreground mb-4 flex-grow">{project.description}</p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map((tag) => (
+                    <span 
+                      key={tag}
+                      className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
                     >
-                      <Github className="w-5 h-5" />
-                      Code
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 mt-auto pt-4 border-t border-border">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-700 hover:text-green-500 transition-colors">
+                    <Github className="w-5 h-5" /> Code
+                  </a>
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-700 hover:text-green-500 transition-colors">
+                      <ExternalLink className="w-5 h-5" /> Demo
                     </a>
-                    {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        Demo
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
